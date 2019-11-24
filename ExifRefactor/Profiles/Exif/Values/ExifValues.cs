@@ -4,9 +4,9 @@ namespace ExifRefactor
 {
     public static partial class ExifValues
     {
-        internal static IExifValue Create(IExifTag tag) => (IExifValue)CreateValue(tag);
+        internal static ExifValue Create(IExifTag tag) => (ExifValue)CreateValue(tag);
 
-        internal static IExifValue<TValueType> Create<TValueType>(ExifTag<TValueType> tag) => (IExifValue<TValueType>)CreateValue(tag);
+        internal static ExifValue<TValueType> Create<TValueType>(ExifTag<TValueType> tag) => (ExifValue<TValueType>)CreateValue(tag);
 
         private static object CreateValue(IExifTag tag) => ((ExifTagValue)tag.Value) switch
         {

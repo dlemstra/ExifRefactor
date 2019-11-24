@@ -6,7 +6,7 @@ namespace ExifRefactor
 
     public sealed class ExifProfile : ImageProfile
     {
-        private Collection<IExifValue> _values;
+        private Collection<ExifValue> _values;
         private List<IExifTag> _invalidTags = new List<IExifTag>();
 
         public ExifProfile() : base(null)
@@ -32,7 +32,7 @@ namespace ExifRefactor
             }
         }
 
-        public IEnumerable<IExifValue> Values
+        public IEnumerable<ExifValue> Values
         {
             get
             {
@@ -41,7 +41,7 @@ namespace ExifRefactor
             }
         }
 
-        public IExifValue<TValueType> GetValue<TValueType>(ExifTag<TValueType> tag)
+        public ExifValue<TValueType> GetValue<TValueType>(ExifTag<TValueType> tag)
         {
             InitializeValues();
 
@@ -49,7 +49,7 @@ namespace ExifRefactor
             {
                 if (exifValue.Tag.Equals(tag))
                 {
-                    return (IExifValue<TValueType>)exifValue;
+                    return (ExifValue<TValueType>)exifValue;
                 }
             }
 
@@ -94,7 +94,7 @@ namespace ExifRefactor
 
             if (Data == null)
             {
-                _values = new Collection<IExifValue>();
+                _values = new Collection<ExifValue>();
                 return;
             }
 

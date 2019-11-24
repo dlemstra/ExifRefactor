@@ -1,33 +1,17 @@
 ﻿namespace ExifRefactor
 {
-    public abstract class ExifValue<TValueType> : IExifValue<TValueType>
+    public abstract class ExifValue<TValueType> : ExifValue
     {
         internal ExifValue(ExifTag<TValueType> tag)
+            : base(tag)
         {
-            Tag = tag;
         }
-
-        public IExifTag Tag { get; }
 
         public virtual TValueType Value { get; set; }
 
-        public abstract ExifDataType DataType { get; }
-
-        public abstract bool IsArray { get; }
-
         internal abstract string StringValue { get; }
 
-        bool IExifValue.TrySetValue(object value)
-        {
-            if (SetValue(value))
-            {
-                return true;
-            }
-
-            return TrySetValue(value);
-        }
-
-        public object GetValue() => Value;
+        public override object GetValue() => Value;
 
         public override string ToString()
         {
@@ -41,7 +25,17 @@
             return StringValue;
         }
 
-        protected abstract bool TrySetValue(object value);
+        public override bool TrySetValue(object value)
+        {
+            if (SetValue(value))
+            {
+                return true;
+            }
+
+            return TrySetValueFromObject(value);
+        }
+
+        protected abstract bool TrySetValueFromObject(object value);
 
         private bool SetValue(object value)
         {

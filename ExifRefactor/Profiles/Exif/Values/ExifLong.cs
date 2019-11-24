@@ -15,7 +15,7 @@ namespace ExifRefactor
 
         internal override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 
-        protected override bool TrySetValue(object value)
+        protected override bool TrySetValueFromObject(object value)
         {
             switch (value)
             {

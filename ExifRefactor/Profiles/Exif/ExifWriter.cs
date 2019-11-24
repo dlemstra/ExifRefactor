@@ -15,7 +15,7 @@ namespace ExifRefactor
             _allowedParts = allowedParts;
         }
 
-        public byte[] Write(Collection<IExifValue> values)
+        public byte[] Write(Collection<ExifValue> values)
         {
             var ifdValues = GetPartValues(values, ExifParts.IfdTags);
             var exifValues = GetPartValues(values, ExifParts.ExifTags);
@@ -88,7 +88,7 @@ namespace ExifRefactor
             return result;
         }
 
-        private static bool HasValue(IExifValue exifValue)
+        private static bool HasValue(ExifValue exifValue)
         {
             var value = exifValue.GetValue();
 
@@ -104,7 +104,7 @@ namespace ExifRefactor
             return true;
         }
 
-        private static IExifValue GetOffsetValue(Collection<IExifValue> ifdValues, Collection<IExifValue> values, IExifTag offset)
+        private static ExifValue GetOffsetValue(Collection<ExifValue> ifdValues, Collection<ExifValue> values, IExifTag offset)
         {
             var index = -1;
 
@@ -132,7 +132,7 @@ namespace ExifRefactor
             return null;
         }
 
-        private static uint GetLength(Collection<IExifValue> values)
+        private static uint GetLength(Collection<ExifValue> values)
         {
             if (values.Count == 0)
                 return 0;
@@ -152,9 +152,9 @@ namespace ExifRefactor
             return length;
         }
 
-        private static uint GetLength(IExifValue value) => GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
+        private static uint GetLength(ExifValue value) => GetNumberOfComponents(value) * ExifDataTypes.GetSize(value.DataType);
 
-        private static uint GetNumberOfComponents(IExifValue exifValue)
+        private static uint GetNumberOfComponents(ExifValue exifValue)
         {
             var value = exifValue.GetValue();
 
@@ -167,9 +167,9 @@ namespace ExifRefactor
             return 1;
         }
 
-        private static int WriteHeaders(Collection<IExifValue> values, byte[] destination, int offset) => WriteHeaders(values, destination, offset, 0);
+        private static int WriteHeaders(Collection<ExifValue> values, byte[] destination, int offset) => WriteHeaders(values, destination, offset, 0);
 
-        private static int WriteHeaders(Collection<IExifValue> values, byte[] destination, int offset, uint dataOffset)
+        private static int WriteHeaders(Collection<ExifValue> values, byte[] destination, int offset, uint dataOffset)
         {
             offset = Write(BitConverter.GetBytes((ushort)values.Count), destination, offset);
 
@@ -199,7 +199,7 @@ namespace ExifRefactor
             return offset;
         }
 
-        private static int WriteData(Collection<IExifValue> values, byte[] destination, int offset)
+        private static int WriteData(Collection<ExifValue> values, byte[] destination, int offset)
         {
             foreach (var value in values)
             {
@@ -219,7 +219,7 @@ namespace ExifRefactor
             return offset + source.Length;
         }
 
-        private static int WriteValue(IExifValue exifValue, byte[] destination, int offset)
+        private static int WriteValue(ExifValue exifValue, byte[] destination, int offset)
         {
             if (exifValue.IsArray && exifValue.DataType != ExifDataType.String)
                 return WriteArray(exifValue, destination, offset);
@@ -227,7 +227,7 @@ namespace ExifRefactor
                 return WriteValue(exifValue.DataType, exifValue.GetValue(), destination, offset);
         }
 
-        private static int WriteArray(IExifValue exifValue, byte[] destination, int offset)
+        private static int WriteArray(ExifValue exifValue, byte[] destination, int offset)
         {
             var value = exifValue.GetValue();
 
@@ -299,9 +299,9 @@ namespace ExifRefactor
             return offset;
         }
 
-        private Collection<IExifValue> GetPartValues(Collection<IExifValue> values, ExifParts part)
+        private Collection<ExifValue> GetPartValues(Collection<ExifValue> values, ExifParts part)
         {
-            var result = new Collection<IExifValue>();
+            var result = new Collection<ExifValue>();
 
             if (!EnumHelper.HasFlag(_allowedParts, part))
                 return result;

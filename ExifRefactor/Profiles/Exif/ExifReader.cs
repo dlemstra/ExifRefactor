@@ -22,9 +22,9 @@ namespace ExifRefactor
 
         public IEnumerable<IExifTag> InvalidTags => _invalidTags;
 
-        public Collection<IExifValue> Read(byte[] data)
+        public Collection<ExifValue> Read(byte[] data)
         {
-            var result = new Collection<IExifValue>();
+            var result = new Collection<ExifValue>();
 
             if (data == null || data.Length == 0)
                 return result;
@@ -71,7 +71,7 @@ namespace ExifRefactor
             return result;
         }
 
-        private void AddValues(Collection<IExifValue> values, uint index)
+        private void AddValues(Collection<ExifValue> values, uint index)
         {
             _reader.Seek(_startIndex + index);
             var count = ReadShort();
@@ -104,7 +104,7 @@ namespace ExifRefactor
             }
         }
 
-        private IExifValue CreateValue()
+        private ExifValue CreateValue()
         {
             if (!_reader.CanRead(12))
                 return null;
@@ -112,7 +112,7 @@ namespace ExifRefactor
             var tagValue = (ExifTagValue)ReadShort();
             var tag = ExifTag.Get(tagValue);
             var dataType = EnumHelper.Parse(ReadShort(), ExifDataType.Unknown);
-            IExifValue value = null;
+            ExifValue value = null;
 
             if (dataType == ExifDataType.Unknown)
                 return null;
@@ -162,7 +162,7 @@ namespace ExifRefactor
             return value;
         }
 
-        private IExifValue CreateValue(IExifTag tag, ExifDataType dataType, uint numberOfComponents)
+        private ExifValue CreateValue(IExifTag tag, ExifDataType dataType, uint numberOfComponents)
         {
             var exifValue = ExifValues.Create(tag);
             if (exifValue == null)
@@ -314,7 +314,7 @@ namespace ExifRefactor
 
         private void ReadThumbnail(uint offset)
         {
-            var values = new Collection<IExifValue>();
+            var values = new Collection<ExifValue>();
             AddValues(values, offset);
 
             foreach (var value in values)
