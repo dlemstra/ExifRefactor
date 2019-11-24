@@ -14,9 +14,9 @@ namespace ExifRefactor
             _description = description;
         }
 
-        public static string GetDescription(IExifTag tag, object value)
+        public static string GetDescription(ExifTag tag, object value)
         {
-            var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>((ExifTagValue)tag.Value);
+            var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>((ExifTagValue)(ushort)tag);
 
             if (attributes == null || attributes.Length == 0)
                 return null;

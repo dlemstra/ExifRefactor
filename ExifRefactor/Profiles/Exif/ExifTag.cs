@@ -1,7 +1,43 @@
-﻿namespace ExifRefactor
+﻿using System;
+
+namespace ExifRefactor
 {
-    public static class ExifTag
+    public abstract class ExifTag : IEquatable<ExifTag>
     {
+        private readonly ushort _value;
+
+        internal ExifTag(ushort value)
+        {
+            _value = value;
+        }
+
+        public static bool operator ==(ExifTag left, ExifTag right) => Equals(left, right);
+
+        public static bool operator !=(ExifTag left, ExifTag right) => !Equals(left, right);
+
+        public static implicit operator ushort(ExifTag tag) => tag._value;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ExifValue value)
+                return Equals(value);
+
+            return false;
+        }
+
+        public bool Equals(ExifTag other)
+        {
+            if (other is null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return _value == other._value;
+        }
+
+        public override int GetHashCode() => _value.GetHashCode();
+
         public static ExifTag<uint> SubIFDOffset { get; } = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
         public static ExifTag<uint> GPSIFDOffset { get; } = new ExifTag<uint>(ExifTagValue.GPSIFDOffset);
@@ -14,7 +50,7 @@
 
         public static ExifTag<Number> PixelXDimension { get; } = new ExifTag<Number>(ExifTagValue.PixelXDimension);
 
-        internal static IExifTag Get(ExifTagValue tag) => (tag) switch
+        internal static ExifTag Get(ExifTagValue tag) => (tag) switch
         {
             ExifTagValue.SubIFDOffset => SubIFDOffset,
             ExifTagValue.GPSIFDOffset => GPSIFDOffset,

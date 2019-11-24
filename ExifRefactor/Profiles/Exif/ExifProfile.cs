@@ -7,7 +7,7 @@ namespace ExifRefactor
     public sealed class ExifProfile : ImageProfile
     {
         private Collection<ExifValue> _values;
-        private List<IExifTag> _invalidTags = new List<IExifTag>();
+        private List<ExifTag> _invalidTags = new List<ExifTag>();
 
         public ExifProfile() : base(null)
         {
@@ -23,7 +23,7 @@ namespace ExifRefactor
 
         public ExifParts Parts { get; set; } = ExifParts.All;
 
-        public IEnumerable<IExifTag> InvalidTags
+        public IEnumerable<ExifTag> InvalidTags
         {
             get
             {

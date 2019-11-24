@@ -2,9 +2,9 @@
 {
     internal static class ExifTags
     {
-        public static ExifParts GetPart(IExifTag tag)
+        public static ExifParts GetPart(ExifTag tag)
         {
-            switch ((ExifTagValue)tag.Value)
+            switch ((ExifTagValue)(ushort)tag)
             {
                 case ExifTagValue.CodingMethods:
                 case ExifTagValue.JPEGInterchangeFormat:

@@ -104,7 +104,7 @@ namespace ExifRefactor
             return true;
         }
 
-        private static ExifValue GetOffsetValue(Collection<ExifValue> ifdValues, Collection<ExifValue> values, IExifTag offset)
+        private static ExifValue GetOffsetValue(Collection<ExifValue> ifdValues, Collection<ExifValue> values, ExifTag offset)
         {
             var index = -1;
 
@@ -177,7 +177,7 @@ namespace ExifRefactor
 
             foreach (var value in values)
             {
-                offset = Write(BitConverter.GetBytes(value.Tag.Value), destination, offset);
+                offset = Write(BitConverter.GetBytes(value.Tag), destination, offset);
                 offset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, offset);
                 offset = Write(BitConverter.GetBytes(GetNumberOfComponents(value)), destination, offset);
 

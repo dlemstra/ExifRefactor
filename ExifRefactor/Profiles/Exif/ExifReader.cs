@@ -6,7 +6,7 @@ namespace ExifRefactor
 {
     internal sealed class ExifReader
     {
-        private readonly Collection<IExifTag> _invalidTags = new Collection<IExifTag>();
+        private readonly Collection<ExifTag> _invalidTags = new Collection<ExifTag>();
 
         private EndianReader _reader;
         private bool _isLittleEndian;
@@ -20,7 +20,7 @@ namespace ExifRefactor
 
         public uint ThumbnailOffset { get; private set; }
 
-        public IEnumerable<IExifTag> InvalidTags => _invalidTags;
+        public IEnumerable<ExifTag> InvalidTags => _invalidTags;
 
         public Collection<ExifValue> Read(byte[] data)
         {
@@ -162,7 +162,7 @@ namespace ExifRefactor
             return value;
         }
 
-        private ExifValue CreateValue(IExifTag tag, ExifDataType dataType, uint numberOfComponents)
+        private ExifValue CreateValue(ExifTag tag, ExifDataType dataType, uint numberOfComponents)
         {
             var exifValue = ExifValues.Create(tag);
             if (exifValue == null)

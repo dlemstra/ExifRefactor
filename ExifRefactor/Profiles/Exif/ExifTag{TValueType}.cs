@@ -2,25 +2,12 @@
 
 namespace ExifRefactor
 {
-    [DebuggerDisplay("{(ExifTagValue)Value}")]
-    public struct ExifTag<TValueType> : IExifTag
+    [DebuggerDisplay("{(ExifTagValue)(ushort)this}")]
+    public sealed class ExifTag<TValueType> : ExifTag
     {
-        internal ExifTag(ExifTagValue value) => Value = (ushort)value;
-
-        public ushort Value { get; }
-
-        public override bool Equals(object obj)
+        internal ExifTag(ExifTagValue value)
+            : base((ushort)value)
         {
-            if (obj is IExifTag tag)
-            {
-                return Equals(tag);
-            }
-
-            return false;
         }
-
-        public static implicit operator uint(ExifTag<TValueType> tag) => tag.Value;
-
-        public override int GetHashCode() => Value.GetHashCode();
     }
 }

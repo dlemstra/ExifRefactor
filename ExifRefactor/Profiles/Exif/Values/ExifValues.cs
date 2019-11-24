@@ -4,11 +4,11 @@ namespace ExifRefactor
 {
     public static partial class ExifValues
     {
-        internal static ExifValue Create(IExifTag tag) => (ExifValue)CreateValue(tag);
+        internal static ExifValue Create(ExifTag tag) => (ExifValue)CreateValue(tag);
 
         internal static ExifValue<TValueType> Create<TValueType>(ExifTag<TValueType> tag) => (ExifValue<TValueType>)CreateValue(tag);
 
-        private static object CreateValue(IExifTag tag) => ((ExifTagValue)tag.Value) switch
+        private static object CreateValue(ExifTag tag) => ((ExifTagValue)(uint)tag) switch
         {
             ExifTagValue.SubIFDOffset => new ExifLong(ExifTag.SubIFDOffset),
             ExifTagValue.JPEGInterchangeFormat => new ExifLong(ExifTag.JPEGInterchangeFormat),
