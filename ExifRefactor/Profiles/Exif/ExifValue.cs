@@ -23,9 +23,21 @@ namespace ExifRefactor
 
         public static bool operator !=(ExifValue left, ExifValue right) => !Equals(left, right);
 
-        public static bool operator ==(ExifValue left, ushort right) => left.Tag == right;
+        public static bool operator ==(ExifValue left, ushort right)
+        {
+            if (left == null)
+                return false;
 
-        public static bool operator !=(ExifValue left, ushort right) => left.Tag != right;
+            return left.Tag == right;
+        }
+
+        public static bool operator !=(ExifValue left, ushort right)
+        {
+            if (left == null)
+                return true;
+
+            return left.Tag != right;
+        }
 
         public override bool Equals(object obj)
         {
