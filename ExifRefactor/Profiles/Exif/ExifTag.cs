@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace ExifRefactor
 {
+    [DebuggerDisplay("{(ExifTagValue)_value}")]
     public abstract class ExifTag : IEquatable<ExifTag>
     {
         private readonly ushort _value;
