@@ -4,7 +4,7 @@ namespace ExifRefactor
 {
     public abstract class ExifValue : IEquatable<ExifValue>
     {
-        public ExifValue(ExifTag tag)
+        internal ExifValue(ExifTag tag)
         {
             Tag = tag;
         }
