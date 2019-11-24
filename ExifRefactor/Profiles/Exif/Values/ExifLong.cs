@@ -9,9 +9,9 @@ namespace ExifRefactor
         {
         }
 
-        internal override ExifDataType DataType => ExifDataType.Long;
+        public override ExifDataType DataType => ExifDataType.Long;
 
-        internal override bool IsArray => false;
+        public override bool IsArray => false;
 
         internal override string StringValue => Value.ToString(CultureInfo.InvariantCulture);
 

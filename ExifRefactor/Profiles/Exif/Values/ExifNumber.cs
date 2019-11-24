@@ -10,7 +10,7 @@ namespace ExifRefactor
         {
         }
 
-        internal override ExifDataType DataType
+        public override ExifDataType DataType
         {
             get
             {
@@ -21,7 +21,7 @@ namespace ExifRefactor
             }
         }
 
-        internal override bool IsArray => false;
+        public override bool IsArray => false;
 
         internal override string StringValue => ((uint)Value).ToString(CultureInfo.InvariantCulture);
 

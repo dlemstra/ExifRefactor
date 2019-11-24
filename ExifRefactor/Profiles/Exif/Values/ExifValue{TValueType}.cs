@@ -11,9 +11,9 @@
 
         public virtual TValueType Value { get; set; }
 
-        internal abstract ExifDataType DataType { get; }
+        public abstract ExifDataType DataType { get; }
 
-        internal abstract bool IsArray { get; }
+        public abstract bool IsArray { get; }
 
         internal abstract string StringValue { get; }
 
@@ -26,10 +26,6 @@
 
             return TrySetValue(value);
         }
-
-        ExifDataType IExifValue.DataType => DataType;
-
-        bool IExifValue.IsArray => IsArray;
 
         public object GetValue() => Value;
 
