@@ -112,8 +112,8 @@ namespace ExifRefactor
         /// <returns>True when the specified <see cref="object"/> is equal to this <see cref="Rational"/>.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is Rational)
-                return Equals((Rational)obj);
+            if (obj is Rational rational)
+                return Equals(rational);
 
             return false;
         }

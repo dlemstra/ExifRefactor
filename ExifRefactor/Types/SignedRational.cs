@@ -113,8 +113,8 @@ namespace ExifRefactor
         /// <returns>True when the specified <see cref="object"/> is equal to this <see cref="SignedRational"/>.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is SignedRational)
-                return Equals((SignedRational)obj);
+            if (obj is SignedRational signedRational)
+                return Equals(signedRational);
 
             return false;
         }
