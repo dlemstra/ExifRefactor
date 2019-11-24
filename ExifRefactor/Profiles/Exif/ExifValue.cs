@@ -25,19 +25,16 @@ namespace ExifRefactor
 
         public override bool Equals(object obj)
         {
+            if (obj is null)
+                return false;
+
             if (obj is ExifTag value)
                 return Equals(value);
 
             return false;
         }
 
-        public bool Equals(ExifTag other)
-        {
-            if (other is null)
-                return false;
-
-            return Tag == other;
-        }
+        public bool Equals(ExifTag other) => (ushort)Tag == (ushort)other;
 
         public override int GetHashCode() => Tag.GetHashCode();
     }

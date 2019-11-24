@@ -2,6 +2,8 @@
 {
     internal enum ExifTagValue : ushort
     {
+        Unknown = 0xFFFF,
+
         SubIFDOffset = 0x8769,
 
         GPSIFDOffset = 0x8825,
