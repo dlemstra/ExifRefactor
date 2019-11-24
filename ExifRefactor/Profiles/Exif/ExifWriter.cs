@@ -177,7 +177,7 @@ namespace ExifRefactor
 
             foreach (var value in values)
             {
-                offset = Write(BitConverter.GetBytes(value.Tag), destination, offset);
+                offset = Write(BitConverter.GetBytes((ushort)value.Tag), destination, offset);
                 offset = Write(BitConverter.GetBytes((ushort)value.DataType), destination, offset);
                 offset = Write(BitConverter.GetBytes(GetNumberOfComponents(value)), destination, offset);
 

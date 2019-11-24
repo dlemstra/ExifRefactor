@@ -15,7 +15,7 @@ namespace ExifRefactor
 
         public static bool operator !=(ExifTag left, ExifTag right) => !Equals(left, right);
 
-        public static implicit operator ushort(ExifTag tag) => tag._value;
+        public static explicit operator ushort(ExifTag tag) => tag._value;
 
         public override bool Equals(object obj)
         {

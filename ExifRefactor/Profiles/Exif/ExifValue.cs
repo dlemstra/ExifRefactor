@@ -2,7 +2,7 @@
 
 namespace ExifRefactor
 {
-    public abstract class ExifValue : IEquatable<ushort>
+    public abstract class ExifValue : IEquatable<ExifTag>
     {
         internal ExifValue(ExifTag tag)
         {
@@ -19,19 +19,25 @@ namespace ExifRefactor
 
         public abstract bool TrySetValue(object value);
 
-        public static bool operator ==(ExifValue left, ushort right) => Equals(left, right);
+        public static bool operator ==(ExifValue left, ExifTag right) => Equals(left, right);
 
-        public static bool operator !=(ExifValue left, ushort right) => !Equals(left, right);
+        public static bool operator !=(ExifValue left, ExifTag right) => !Equals(left, right);
 
         public override bool Equals(object obj)
         {
-            if (obj is ushort value)
+            if (obj is ExifTag value)
                 return Equals(value);
 
             return false;
         }
 
-        public bool Equals(ushort other) => Tag == other;
+        public bool Equals(ExifTag other)
+        {
+            if (other is null)
+                return false;
+
+            return Tag == other;
+        }
 
         public override int GetHashCode() => Tag.GetHashCode();
     }
