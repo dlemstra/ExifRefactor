@@ -9,10 +9,6 @@ namespace ExifRefactor
 
         public ushort Value { get; }
 
-        public static bool operator ==(ExifTag<TValueType> left, ExifTag<TValueType> right) => Equals(left, right);
-
-        public static bool operator !=(ExifTag<TValueType> left, ExifTag<TValueType> right) => !Equals(left, right);
-
         public override bool Equals(object obj)
         {
             if (obj is IExifTag tag)
@@ -23,7 +19,7 @@ namespace ExifRefactor
             return false;
         }
 
-        public bool Equals(IExifTag other) => Value == other.Value;
+        public static implicit operator uint(ExifTag<TValueType> tag) => tag.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
     }

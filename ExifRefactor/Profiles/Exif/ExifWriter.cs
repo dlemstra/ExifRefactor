@@ -110,7 +110,7 @@ namespace ExifRefactor
 
             for (var i = 0; i < ifdValues.Count; i++)
             {
-                if (ifdValues[i].Tag.Equals(offset))
+                if (ifdValues[i].Tag == offset)
                     index = i;
             }
 

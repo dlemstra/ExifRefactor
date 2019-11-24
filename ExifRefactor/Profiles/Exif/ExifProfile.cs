@@ -47,7 +47,7 @@ namespace ExifRefactor
 
             foreach (var exifValue in _values)
             {
-                if (exifValue.Tag.Equals(tag))
+                if (exifValue == tag)
                 {
                     return (ExifValue<TValueType>)exifValue;
                 }

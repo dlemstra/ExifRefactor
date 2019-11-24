@@ -14,8 +14,14 @@ namespace ExifRefactor
 
             Console.WriteLine(profile.GetValue(ExifTag.PixelXDimension));
 
-            profile.SetValue(ExifTag.PixelXDimension, 65536);
             profile.SetValue(ExifTag.CodingMethods, 2U);
+            foreach (var value in profile.Values)
+            {
+                if (value == ExifTag.PixelXDimension)
+                {
+                    value.TrySetValue(65536);
+                }
+            }
 
             data = profile.ToByteArray();
             profile = new ExifProfile(data);

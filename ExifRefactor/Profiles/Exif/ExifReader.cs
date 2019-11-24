@@ -85,7 +85,7 @@ namespace ExifRefactor
                 var duplicate = false;
                 foreach (var val in values)
                 {
-                    if (val.Tag.Equals(value.Tag))
+                    if (val == value)
                     {
                         duplicate = true;
                         break;
@@ -95,9 +95,9 @@ namespace ExifRefactor
                 if (duplicate)
                     continue;
 
-                if (value.Tag.Equals(ExifTag.SubIFDOffset))
+                if (value == ExifTag.SubIFDOffset)
                     _exifOffset = ((ExifLong)value).Value;
-                else if (value.Tag.Equals(ExifTag.GPSIFDOffset))
+                else if (value == ExifTag.GPSIFDOffset)
                     _gpsOffset = ((ExifLong)value).Value;
                 else
                     values.Add(value);
@@ -319,9 +319,9 @@ namespace ExifRefactor
 
             foreach (var value in values)
             {
-                if (value.Tag.Equals(ExifTag.JPEGInterchangeFormat))
+                if (value == ExifTag.JPEGInterchangeFormat)
                     ThumbnailOffset = ((ExifLong)value).Value + _startIndex;
-                else if (value.Tag.Equals(ExifTag.JPEGInterchangeFormatLength))
+                else if (value == ExifTag.JPEGInterchangeFormatLength)
                     ThumbnailLength = ((ExifLong)value).Value;
             }
         }

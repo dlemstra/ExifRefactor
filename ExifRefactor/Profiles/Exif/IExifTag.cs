@@ -2,7 +2,7 @@
 
 namespace ExifRefactor
 {
-    public interface IExifTag : IEquatable<IExifTag>
+    public interface IExifTag
     {
         ushort Value { get; }
     }
