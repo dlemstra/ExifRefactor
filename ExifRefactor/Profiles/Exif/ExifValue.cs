@@ -34,7 +34,7 @@ namespace ExifRefactor
             return false;
         }
 
-        public bool Equals(ExifTag other) => (ushort)Tag == (ushort)other;
+        public bool Equals(ExifTag other) => Tag.Equals(other);
 
         public override int GetHashCode() => Tag.GetHashCode();
     }
